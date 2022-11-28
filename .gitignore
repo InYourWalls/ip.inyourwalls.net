@@ -1,0 +1,12 @@
+#######################################
+### .gitignore for my simple IP tool
+#######################################
+
+### IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### Cargo
+target/
