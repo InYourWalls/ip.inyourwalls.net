@@ -5,19 +5,15 @@
 // Imports:
 use rocket::{get, Request, routes};
 use rocket_dyn_templates::{context, Template};
-use std::net::{IpAddr, Ipv4Addr};
+use std::net::IpAddr;
+use rocket::http::Status;
+use rocket::outcome::Outcome::{Failure, Success};
+use rocket::request::{FromRequest, Outcome};
 
 #[get("/")]
-fn ip(req: Request) -> Template {
+fn ip(req: RealIP) -> Template {
     // Get the client IP from the X-Real-IP header.
-    let addr = req.real_ip();
-    if let Some(address) = addr {
-        // Return the IP address.
-        Template::render("index", context! { client_address: address.to_string() })
-    } else {
-        // We don't know what it is.
-        Template::render("index", context! { client_address: String::from("Unknown") })
-    }
+    Template::render("index", context! { client_address: req.0 })
 }
 
 #[rocket::main]
@@ -31,4 +27,20 @@ async fn main() -> Result<(), rocket::Error> {
 
     // Return Ok.
     Ok(())
+}
+
+// Real IP type.
+struct RealIP(IpAddr);
+
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for RealIP {
+    type Error = ();
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<Self, Self::Error> {
+        if let Some(address) = request.real_ip() {
+            Success(RealIP(address))
+        } else {
+            Failure((Status::InternalServerError, ()))
+        }
+    }
 }

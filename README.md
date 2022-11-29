@@ -2,7 +2,7 @@
 The new version of [ip.inyourwalls.net](https://ip.inyourwalls.net/), now with more Rust.
 
 ## Features
-* Templating with [Tera](https://github.com/Keats/tera).
+* Templating with [Handlebars](https://handlebarsjs.com/).
 * That's it.
 
 This program is written primarily for my own purposes, but you're welcome to compile and use it if you wish.
