@@ -8,10 +8,28 @@
                 background-color: #3a3333;
             }
 
-            h1, h2 {
+            h1, h2, p {
                 font-family: Source Code Pro, monospace;
                 text-align: center;
                 color: #eedd7a;
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0.5%;
+            }
+
+            p {
+                text-align: left;
+                color: #555555;
+            }
+
+            a, a:visited {
+                color: #555555;
+            }
+
+            a:hover {
+                color: #ffc77a;
             }
         </style>
     </head>
@@ -19,5 +37,9 @@
     <body>
         <h1>Your IP address is:</h1>
         <h2>{{client_address}}</h2>
+
+        <footer>
+            <p>made with <3 by <a href="https://github.com/InYourWalls/">inyourwalls</a>.</p>
+        </footer>
     </body>
 </html>
